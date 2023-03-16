@@ -8,7 +8,9 @@ RUN --mount=type=cache,target=/root/.cache/pip \
 
 COPY . .
 
-CMD ["python3", "server.py"]
+CMD ["python3", "-m unittest discover test"]
+
+CMD ["python3", "src/server.py"]
 
 FROM builder as dev-envs
 
@@ -22,7 +24,11 @@ addgroup -S docker
 adduser -S --shell /bin/bash --ingroup docker vscode
 EOF
 
+ADD /src /src
+
 # install Docker tools (cli, buildx, compose)
 COPY --from=gloursdocker/docker / /
 
-CMD ["python3", "server.py"]
+CMD ["python3", "-m unittest discover test"]
+
+CMD ["python3", "src/server.py"]
