@@ -6,12 +6,14 @@ from orchestrator.menu_orchestrator import MenuOrchestrator
 from database.menu_repository import MenuRepository
 from database.mongo_gateway import MongoGateway
 
+# TODO: Integrate with dependency injection library pinject
 menu_orchestrator = MenuOrchestrator(MenuRepository(MongoGateway("mongo:27017")))
 
 app = Flask(__name__)
 
 @app.route('/addItem')
 def addItem():
+    # TODO: Remove hard coded values
     return menu_orchestrator.add_menu_item({"name": "banana"})
 
 if __name__ == "__main__":
