@@ -5,9 +5,11 @@ from flask import Flask
 from orchestrator.menu_orchestrator import MenuOrchestrator
 from database.menu_repository import MenuRepository
 from database.mongo_gateway import MongoGateway
+from injection.bindings import Bindings
+from pinject import new_object_graph
 
-# TODO: Integrate with dependency injection library pinject
-menu_orchestrator = MenuOrchestrator(MenuRepository(MongoGateway("mongo:27017")))
+obj_graph = new_object_graph(binding_specs=[Bindings()])
+menu_orchestrator = obj_graph.provide(MenuOrchestrator)
 
 app = Flask(__name__)
 
