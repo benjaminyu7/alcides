@@ -1,6 +1,5 @@
 from pinject import BindingSpec
 from pymongo import MongoClient
-from flask import Flask
 from database.mongo_gateway import MongoGateway
 
 class Bindings(BindingSpec):
