@@ -2,3 +2,4 @@ pymongo
 flask
 pytest
 pinject
+coverage

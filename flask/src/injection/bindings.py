@@ -3,7 +3,9 @@ from pymongo import MongoClient
 from database.mongo_gateway import MongoGateway
 
 class Bindings(BindingSpec):
+
     def provide_mongo_client(self):
         return MongoClient("mongo:27017")
+
     def configure(self, bind):
         bind('database_gateway', to_class=MongoGateway)
