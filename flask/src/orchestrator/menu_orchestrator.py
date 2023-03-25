@@ -9,3 +9,7 @@ class MenuOrchestrator:
     def add_menu_item(self, item):
         self.menu_repository.create_item(item)
         return True
+
+    def get_menu_item(self, item):
+        return self.menu_repository.get_item(item)
+        

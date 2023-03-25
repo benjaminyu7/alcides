@@ -17,5 +17,10 @@ def add_item():
     # TODO: Remove hard coded values
     return menu_orchestrator.add_menu_item({"name": "banana"})
 
+@app.route('/getItem')
+def get_item():
+    # TODO: Remove hard coded values
+    return menu_orchestrator.get_menu_item({"name": "banana"})['name']
+
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=os.environ.get("FLASK_SERVER_PORT", 9090), debug=True)

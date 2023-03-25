@@ -11,3 +11,8 @@ class MongoGateway:
         database = self.mongo_client[database]
         collection = database[collection]
         collection.insert_one(dictionary)
+
+    def get(self, database, collection, dictionary):
+        database = self.mongo_client[database]
+        collection = database[collection]
+        return collection.find_one(dictionary)
