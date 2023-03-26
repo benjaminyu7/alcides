@@ -1,7 +1,7 @@
 # syntax=docker/dockerfile:1.4
 
 # 1. For build React app
-FROM node:lts AS builder
+FROM node:19.8.1 AS builder
 
 # Set working directory
 WORKDIR /app
@@ -20,7 +20,7 @@ ENV PORT=3000
 
 RUN npm run build
 
-CMD [ "npm", "start" ]
+CMD [ "npm", "run", "dev" ]
 
 FROM builder as dev-envs
 
