@@ -25,3 +25,14 @@ services:
 
   mongo:
     image: mongo
+
+  frontend:
+    build:
+      context: react
+      target: dev-envs
+    ports:
+      - "80:3000"
+      - "3000:3000"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+
