@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import ChatBox from '@/components/chatbox'
+import ChatBox from '@/components/chatbox/chatbox'
 
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { blue, orange } from '@mui/material/colors';
