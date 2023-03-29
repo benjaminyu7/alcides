@@ -1,6 +1,10 @@
+.chatbox{
+  max-width: 800px;
+}
 
 #chatBoxtextFieldBox{
   margin: 10px;
+  display: flex;
 }
 
 .textbox {
