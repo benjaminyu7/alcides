@@ -10,11 +10,13 @@ import IconButton from '@mui/material/IconButton';
 
 export default function ChatBox() {
 
-  const [message, setMessage] = useState("Initial Message: ");
-  const [inputValue, setInputValue] = useState("Initial Message: ");
+  const [messages, setMessages]:[JSX.Element[], Function] = useState([]);
+  const [inputValue, setInputValue]:[String, Function] = useState("Initial Message: ");
 
-  function handleClick() {
-    setMessage(inputValue)
+  function sendMessage() {
+    var newMessages = messages
+    newMessages.push(<TextBox avatar='a' text={inputValue}/>)
+    setMessages(newMessages)
     setInputValue('')
   }
 
@@ -25,14 +27,15 @@ export default function ChatBox() {
   function handleKeyDown(event: any) {
     if (event.keyCode == 13 && !event.shiftKey) {
       event.preventDefault();
-      handleClick()
+      sendMessage()
     }
   }
 
   return (
     <div className ={styles.chatbox}>
       <Card>
-        <TextBox avatar='a' text={message}/>
+        <div>{messages}</div>
+        
         <Box id={styles.chatBoxtextFieldBox}>
           <TextField
               multiline
@@ -42,7 +45,7 @@ export default function ChatBox() {
               value={inputValue}
               onKeyDown={handleKeyDown}
           />
-          <IconButton onClick={handleClick}>
+          <IconButton onClick={sendMessage}>
             <SendIcon />
           </IconButton>
         </Box>
