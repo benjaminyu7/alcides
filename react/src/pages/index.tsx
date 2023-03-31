@@ -1,9 +1,7 @@
 import Head from 'next/head'
 import ChatBox from '@/components/chatbox/chatbox'
-
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { blue, orange } from '@mui/material/colors';
-import Button from '@mui/material/Button';
 
 const theme = createTheme({
   palette: {
@@ -27,8 +25,6 @@ export default function Home() {
         <div>
           <ThemeProvider theme={theme}>
             <ChatBox />
-            <Button>Primary</Button>
-            <Button color="secondary">Secondary</Button>
           </ThemeProvider>
         </div>
       </main>

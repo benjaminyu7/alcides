@@ -11,7 +11,7 @@ import IconButton from '@mui/material/IconButton';
 export default function ChatBox() {
 
   const [messages, setMessages]:[JSX.Element[], Function] = useState([]);
-  const [inputValue, setInputValue]:[String, Function] = useState("Initial Message: ");
+  const [inputValue, setInputValue]:[String, Function] = useState("");
 
   function sendMessage() {
     var newMessages = messages
