@@ -14,7 +14,8 @@ obj_graph = new_object_graph(binding_specs=[Bindings()])
 message_orchestrator = obj_graph.provide(MessageOrchestrator)
 
 @app.route(FLASK_ROUTING + '/addMessage/<sender>/<recipient>', methods=['POST'])
-def add_item(sender, recipient):
+def add_message(sender, recipient):
+    app.logger.debug('add_message request: Sender: ' + sender + ', Recipient: ' + recipient + ', Request: ' + str(request))
     didSend = message_orchestrator.add_message(sender, recipient, request.json['message'])
     if(didSend):
         return jsonify({'status':'OK'}), 200
@@ -22,9 +23,10 @@ def add_item(sender, recipient):
         return jsonify({'status':'ERROR'}), 400
 
 @app.route(FLASK_ROUTING + '/getMessages/<sender>/<recipient>', methods=['GET'])
-def get_item(sender, recipient):
-    value = message_orchestrator.get_messages(sender, recipient);
-    app.logger.info(value)
+def get_messages(sender, recipient):
+    app.logger.debug('get_messages request: Sender: ' + sender + ', Recipient: ' + recipient)
+    value = message_orchestrator.get_messages(sender, recipient)
+    app.logger.debug('get_messages response: ' + str(value))
     return value['message']
 
 if __name__ == "__main__":
