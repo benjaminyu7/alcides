@@ -1,10 +1,12 @@
 #!/usr/bin/env python
 import os
+import sys
+sys.path.append('../src')
 
 from flask import ( Flask, request, jsonify )
-from orchestrator.message_orchestrator import MessageOrchestrator
-from database.message_repository import MessageRepository
-from injection.bindings import Bindings
+from src.orchestrator.message_orchestrator import MessageOrchestrator
+from src.database.message_repository import MessageRepository
+from src.injection.bindings import Bindings
 from pinject import new_object_graph
 
 app = Flask(__name__)
