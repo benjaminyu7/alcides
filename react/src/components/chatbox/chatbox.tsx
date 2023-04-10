@@ -7,16 +7,26 @@ import styles from '@/styles/components/chatbox.module.css'
 import TextBox from '@/components/chatbox/textbox'
 import SendIcon from '@mui/icons-material/Send';
 import IconButton from '@mui/material/IconButton';
+import { GetMessage, CreateMessage } from '@/proxy/chatDb';
 
 export default function ChatBox() {
 
   const [messages, setMessages]:[JSX.Element[], Function] = useState([]);
-  const [inputValue, setInputValue]:[String, Function] = useState("");
+  const [inputValue, setInputValue]:[string, Function] = useState("");
+  const sender = "anySender";
+  const recipient = "anyRecipient";
+
+  function sent(result: any) {console.log(result)}
+
+  function addMessage(message: string) {
+    var newMessages = messages
+    newMessages.push(<TextBox avatar='a' text={message}/>)
+    setMessages(newMessages)
+  }
 
   function sendMessage() {
-    var newMessages = messages
-    newMessages.push(<TextBox avatar='a' text={inputValue}/>)
-    setMessages(newMessages)
+    CreateMessage(sender, recipient,inputValue,sent)
+    addMessage(inputValue)
     setInputValue('')
   }
 
@@ -30,6 +40,8 @@ export default function ChatBox() {
       sendMessage()
     }
   }
+
+  GetMessage(sender, recipient, addMessage)
 
   return (
     <div className ={styles.chatbox}>

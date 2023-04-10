@@ -29,7 +29,7 @@ def get_messages(sender, recipient):
     app.logger.debug('get_messages request: Sender: ' + sender + ', Recipient: ' + recipient)
     value = message_orchestrator.get_messages(sender, recipient)
     app.logger.debug('get_messages response: ' + str(value))
-    return value['message']
+    return jsonify({'message': value['message']})
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=os.environ.get("FLASK_SERVER_PORT", 9090), debug=True)
