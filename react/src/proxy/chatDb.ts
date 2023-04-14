@@ -28,7 +28,9 @@ export function GetMessage (sender: string, recipient: string, createMessage:Fun
     .then(res => res.json())
     .then(
         (result) => {
-            createMessage(result.message)
+            if(result.message != null) {
+                createMessage(result.message)
+            }
         }
     );
 }

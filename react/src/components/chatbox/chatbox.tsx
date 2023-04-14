@@ -13,6 +13,7 @@ export default function ChatBox() {
 
   const [messages, setMessages]:[JSX.Element[], Function] = useState([]);
   const [inputValue, setInputValue]:[string, Function] = useState("");
+  const [isInitialized, setIsInitialized]:[boolean, Function] = useState(false);
   const sender = "anySender";
   const recipient = "anyRecipient";
 
@@ -25,9 +26,11 @@ export default function ChatBox() {
   }
 
   function sendMessage() {
-    CreateMessage(sender, recipient,inputValue,sent)
-    addMessage(inputValue)
-    setInputValue('')
+    if(inputValue!=='') {
+      CreateMessage(sender, recipient,inputValue,sent)
+      addMessage(inputValue)
+      setInputValue('')
+    }
   }
 
   function handleInputChange(event: any) {
@@ -41,7 +44,10 @@ export default function ChatBox() {
     }
   }
 
-  GetMessage(sender, recipient, addMessage)
+  if(!isInitialized) {
+    GetMessage(sender, recipient, addMessage)
+    setIsInitialized(true)
+  }
 
   return (
     <div className ={styles.chatbox}>
