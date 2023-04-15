@@ -15,6 +15,5 @@ class MessageOrchestrator:
 
     def get_messages(self, sender: str, recipient: str):
         value = self.message_repository.get_messages(sender, recipient)
-        print(value)
         return value
         
