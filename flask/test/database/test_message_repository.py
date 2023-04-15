@@ -21,8 +21,8 @@ class TestMessageRepository(unittest.TestCase):
     def test_get_message(self):
         mock_message_gateway = MagicMock()
         mockDatabase = {}
-        def add_message_side_effect(database: str, collection: str, query: dict, update_operator):
-            query[MESSAGE_CONTENT] = [update_operator['$push'][MESSAGE_CONTENT]]
+        def add_message_side_effect(database: str, collection: str, query: dict, pushListElementQuery: dict):
+            query[MESSAGE_CONTENT] = [pushListElementQuery[MESSAGE_CONTENT]]
             mockDatabase[database] = {collection:query}
         mock_message_gateway.create_or_update_list = MagicMock(side_effect=add_message_side_effect)
 

@@ -7,17 +7,13 @@ class MongoGateway:
     def __init__(self, mongo_client):
         pass
 
-    def insert(self, database, collection, dictionary):
-        database = self.mongo_client[database]
-        collection = database[collection]
-        collection.insert_one(dictionary)
-
     def get(self, database, collection, dictionary):
         database = self.mongo_client[database]
         collection = database[collection]
         return collection.find_one(dictionary)
 
-    def create_or_update_list(self, database, collection, query, listElement):
+    # 
+    def create_or_update_list(self, database, collection, query, pushListElementQuery):
         database = self.mongo_client[database]
         collection = database[collection]
-        collection.update_one(query, listElement, upsert=True)
+        collection.update_one(query, {"$push":pushListElementQuery}, upsert=True)

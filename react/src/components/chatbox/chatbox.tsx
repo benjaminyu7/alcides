@@ -13,7 +13,6 @@ export default function ChatBox() {
 
   const [messages, setMessages]:[JSX.Element[], Function] = useState([]);
   const [inputValue, setInputValue]:[string, Function] = useState("");
-  const [isInitialized, setIsInitialized]:[boolean, Function] = useState(false);
   const sender = "anySender";
   const recipient = "anyRecipient";
 
@@ -46,7 +45,6 @@ export default function ChatBox() {
     }
   }
 
-  // Fixes bug where initial messages are only loaded on next render
   useEffect(() => {
     GetMessage(sender, recipient, addMessage)
   }, [])
