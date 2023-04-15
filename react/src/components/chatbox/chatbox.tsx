@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import TextField from '@mui/material/TextField';
@@ -19,16 +19,18 @@ export default function ChatBox() {
 
   function sent(result: any) {console.log(result)}
 
-  function addMessage(message: string) {
-    var newMessages = messages
-    newMessages.push(<TextBox avatar='a' text={message}/>)
+  function addMessage(thisMessages: string[]) {
+    var newMessages = messages.slice();
+    for(var index in thisMessages) {
+      newMessages.push(<TextBox avatar='a' text={thisMessages[index]}/>)
+    }
     setMessages(newMessages)
   }
 
   function sendMessage() {
     if(inputValue!=='') {
       CreateMessage(sender, recipient,inputValue,sent)
-      addMessage(inputValue)
+      addMessage([inputValue])
       setInputValue('')
     }
   }
@@ -44,10 +46,10 @@ export default function ChatBox() {
     }
   }
 
-  if(!isInitialized) {
+  // Fixes bug where initial messages are only loaded on next render
+  useEffect(() => {
     GetMessage(sender, recipient, addMessage)
-    setIsInitialized(true)
-  }
+  }, [])
 
   return (
     <div className ={styles.chatbox}>

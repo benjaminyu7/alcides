@@ -28,8 +28,8 @@ export function GetMessage (sender: string, recipient: string, createMessage:Fun
     .then(res => res.json())
     .then(
         (result) => {
-            if(result.message != null) {
-                createMessage(result.message)
+            if(result.messages != null) {
+                createMessage(result.messages)
             }
         }
     );
