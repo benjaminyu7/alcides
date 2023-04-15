@@ -30,7 +30,7 @@ def get_messages(sender, recipient):
     value = message_orchestrator.get_messages(sender, recipient)
     app.logger.debug('get_messages response: ' + str(value))
     if value != None:
-        return jsonify({'message': value['message']})
+        return jsonify({'messages': value['messages']})
     else:
         return jsonify({'status':'OK'}), 200
 

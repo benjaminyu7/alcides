@@ -9,7 +9,7 @@ class TestMessageRepository(unittest.TestCase):
     ANY_RECIPIENT = "anyRecipient"
     ANY_MESSAGE = "anyMessage"
     ANY_ID = "anyId"
-    ANY_GET_MESSAGES_RESPONSE = {MESSAGE_SENDER: ANY_SENDER, MESSAGE_RECIPIENT: ANY_RECIPIENT, MESSAGE_CONTENT: ANY_MESSAGE}
+    ANY_GET_MESSAGES_RESPONSE = {MESSAGE_SENDER: ANY_SENDER, MESSAGE_RECIPIENT: ANY_RECIPIENT, MESSAGE_CONTENT: [ANY_MESSAGE]}
 
     def test_add_message(self):
         mock_message_gateway = MagicMock()
@@ -21,11 +21,12 @@ class TestMessageRepository(unittest.TestCase):
     def test_get_message(self):
         mock_message_gateway = MagicMock()
         mockDatabase = {}
-        def add_message_side_effect(database: str, collection: str, dictionary: dict):
-            mockDatabase[database] = {collection: dictionary}
-        mock_message_gateway.insert = MagicMock(side_effect=add_message_side_effect)
+        def add_message_side_effect(database: str, collection: str, query: dict, update_operator):
+            query[MESSAGE_CONTENT] = [update_operator['$push'][MESSAGE_CONTENT]]
+            mockDatabase[database] = {collection:query}
+        mock_message_gateway.create_or_update_list = MagicMock(side_effect=add_message_side_effect)
 
-        def get_messages_side_effect(database: str, collection: str, dictionary: dict):
+        def get_messages_side_effect(database: str, collection: str, query: dict):
             if (database in mockDatabase and collection in mockDatabase[database]):
                 return mockDatabase[database][collection]
             else:

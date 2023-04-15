@@ -16,3 +16,8 @@ class MongoGateway:
         database = self.mongo_client[database]
         collection = database[collection]
         return collection.find_one(dictionary)
+
+    def create_or_update_list(self, database, collection, query, listElement):
+        database = self.mongo_client[database]
+        collection = database[collection]
+        collection.update_one(query, listElement, upsert=True)

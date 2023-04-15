@@ -8,7 +8,8 @@ class MessageRepository:
         pass
 
     def create_message(self, sender: str, recipient: str, message: str):
-        self.database_gateway.insert(DATABASE_NAME, MESSAGE_COLLECTION_NAME, {MESSAGE_SENDER: sender, MESSAGE_RECIPIENT: recipient, MESSAGE_CONTENT: message})
+        self.database_gateway.create_or_update_list(DATABASE_NAME, MESSAGE_COLLECTION_NAME, {MESSAGE_SENDER: sender, MESSAGE_RECIPIENT: recipient}, {"$push": {MESSAGE_CONTENT: message}})
 
+    # TODO: Get a slice of the messages
     def get_messages(self, sender: str, recipient: str):
         return self.database_gateway.get(DATABASE_NAME, MESSAGE_COLLECTION_NAME, {MESSAGE_SENDER: sender, MESSAGE_RECIPIENT: recipient})
