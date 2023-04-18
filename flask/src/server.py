@@ -24,10 +24,10 @@ def add_message(sender, recipient):
     else:
         return jsonify({'status':'ERROR'}), 400
 
-@app.route(FLASK_ROUTING + '/getMessages/<sender>/<recipient>', methods=['GET'])
-def get_messages(sender, recipient):
-    app.logger.debug('get_messages request: Sender: ' + sender + ', Recipient: ' + recipient)
-    value = message_orchestrator.get_messages(sender, recipient)
+@app.route(FLASK_ROUTING + '/getMessages/<recipient>', methods=['GET'])
+def get_messages(recipient):
+    app.logger.debug('get_messages request: Recipient: ' + recipient)
+    value = message_orchestrator.get_messages(recipient)
     app.logger.debug('get_messages response: ' + str(value))
     if value != None:
         return jsonify({'messages': value['messages']})

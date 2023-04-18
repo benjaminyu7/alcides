@@ -46,7 +46,7 @@ export default function ChatBox() {
   }
 
   useEffect(() => {
-    GetMessage(sender, recipient, addMessage)
+    GetMessage(recipient, addMessage)
   }, [])
 
   return (

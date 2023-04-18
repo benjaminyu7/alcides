@@ -17,8 +17,8 @@ export function CreateMessage (sender: string, recipient: string, message:string
     })
 }
 
-export function GetMessage (sender: string, recipient: string, createMessage:Function) {
-    fetch(`/flask/getMessages/${sender}/${recipient}`, {
+export function GetMessage (recipient: string, createMessage:Function) {
+    fetch(`/flask/getMessages/${recipient}`, {
         method: 'GET',
         headers: {
             'Accept': 'application/json',
