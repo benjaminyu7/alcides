@@ -8,6 +8,7 @@ from src.orchestrator.message_orchestrator import MessageOrchestrator
 from src.database.message_repository import MessageRepository
 from src.injection.bindings import Bindings
 from pinject import new_object_graph
+from src.constants.database_constants import ( DATABASE_NAME, MESSAGE_COLLECTION_NAME, MESSAGES, MESSAGE_CONTENT, MESSAGE_RECIPIENT, MESSAGE_SENDER)
 
 app = Flask(__name__)
 FLASK_ROUTING = "/flask"
@@ -30,7 +31,7 @@ def get_messages(recipient):
     value = message_orchestrator.get_messages(recipient)
     app.logger.debug('get_messages response: ' + str(value))
     if value != None:
-        return jsonify({'messages': value['messages']})
+        return jsonify({MESSAGES: value[MESSAGES]})
     else:
         return jsonify({'status':'OK'}), 200
 

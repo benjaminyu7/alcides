@@ -14,6 +14,15 @@ class MessageOrchestrator:
             return False
 
     def get_messages(self, recipient: str):
-        value = self.message_repository.get_messages(recipient)
-        return value
+        """
+        returns {
+            "messages": [
+                {
+                    "message_content": "Hello world!",
+                    "sender": "anySender"
+                }
+            ]
+        }
+        """
+        return self.message_repository.get_messages(recipient)
         

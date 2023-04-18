@@ -8,6 +8,7 @@ import TextBox from '@/components/chatbox/textbox'
 import SendIcon from '@mui/icons-material/Send';
 import IconButton from '@mui/material/IconButton';
 import { GetMessage, CreateMessage } from '@/proxy/chatDb';
+import { MESSAGE_CONTENT, MESSAGE_SENDER } from '@/constants/databaseConstants';
 
 export default function ChatBox() {
 
@@ -18,10 +19,10 @@ export default function ChatBox() {
 
   function sent(result: any) {console.log(result)}
 
-  function addMessage(thisMessages: string[]) {
+  function addMessage(thisMessages: {message_content:string, sender: string}[]) {
     var newMessages = messages.slice();
     for(var index in thisMessages) {
-      newMessages.push(<TextBox avatar='a' text={thisMessages[index]}/>)
+      newMessages.push(<TextBox avatar='a' text={thisMessages[index][MESSAGE_CONTENT]}/>)
     }
     setMessages(newMessages)
   }
@@ -29,7 +30,7 @@ export default function ChatBox() {
   function sendMessage() {
     if(inputValue!=='') {
       CreateMessage(sender, recipient,inputValue,sent)
-      addMessage([inputValue])
+      addMessage([{message_content: inputValue, sender: sender}])
       setInputValue('')
     }
   }
