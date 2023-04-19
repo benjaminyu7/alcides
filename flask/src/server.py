@@ -3,15 +3,19 @@ import os
 import sys
 sys.path.append('../src')
 
-from flask import ( Flask, request, jsonify )
-from src.orchestrator.message_orchestrator import MessageOrchestrator
-from src.database.message_repository import MessageRepository
-from src.injection.bindings import Bindings
 from pinject import new_object_graph
-from src.constants.database_constants import ( DATABASE_NAME, MESSAGE_COLLECTION_NAME, MESSAGES, MESSAGE_CONTENT, MESSAGE_RECIPIENT, MESSAGE_SENDER)
+from flask import ( Flask, request, jsonify )
+
+from src.constants.database_constants import ( MESSAGES )
+from src.constants.flask_constants import ( FLASK_ROUTING )
+from src.database.message_repository import MessageRepository
+from src.database.account_repository import AccountRepository
+from src.injection.bindings import Bindings
+from src.orchestrator.message_orchestrator import MessageOrchestrator
+from src.blueprint.account_blueprint import account_blueprint
 
 app = Flask(__name__)
-FLASK_ROUTING = "/flask"
+app.register_blueprint(account_blueprint)
     
 obj_graph = new_object_graph(binding_specs=[Bindings()])
 message_orchestrator = obj_graph.provide(MessageOrchestrator)

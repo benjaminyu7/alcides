@@ -7,6 +7,11 @@ class MongoGateway:
     def __init__(self, mongo_client):
         pass
 
+    def insert(self, database:str, collection:str, dictionary:dict):
+        database = self.mongo_client[database]
+        collection = database[collection]
+        collection.insert_one(dictionary)
+
     def get(self, database: str, collection: str, dictionary:dict):
         database = self.mongo_client[database]
         collection = database[collection]
