@@ -21,7 +21,7 @@ def add_user():
     }
     TODO: add addtional account information like password, email, etc
     """
-    current_app.logger.debug('login request: ' + str(request))
+    current_app.logger.debug('addUser request: ' + str(request))
     did_create = account_orchestrator.add_user(request.json['username'])
     if(did_create):
         return jsonify({'status':'OK'}), 200
