@@ -6,3 +6,6 @@ MESSAGE_SENDER = 'sender'
 MESSAGE_RECIPIENT = 'recipient'
 MESSAGE_CONTENT = 'message_content'
 MESSAGES = 'messages'
+
+ACCOUNT_COLLECTION_NAME = "accounts"
+USERNAME = "username"
