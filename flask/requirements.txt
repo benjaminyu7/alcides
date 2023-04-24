@@ -3,3 +3,4 @@ flask
 pytest
 pinject
 coverage
+flask-login
