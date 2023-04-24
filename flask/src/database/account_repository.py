@@ -9,9 +9,6 @@ class AccountRepository:
     def __init__(self, database_gateway):
         pass
 
-    def create_user(self, username:str):
-        self.database_gateway.insert(DATABASE_NAME, ACCOUNT_COLLECTION_NAME, {USERNAME: username})
-
     def find_user_with_email(self, email:str):
         """
         returns User {

@@ -16,8 +16,8 @@ from src.orchestrator.account_orchestrator import AccountOrchestrator
 from src.orchestrator.message_orchestrator import MessageOrchestrator
 from src.blueprint.account_blueprint import account_blueprint
 
-
 app = Flask(__name__)
+# Remove the key from the repo
 app.secret_key = 'supersecretkey'
 app.register_blueprint(account_blueprint)
     
@@ -48,7 +48,8 @@ login_manager.init_app(app)
 
 @login_manager.unauthorized_handler
 def unauthorized_handler():
-    return 'Unauthorized stuff', 401
+    # TODO: integrate with the frontend with a useful code
+    return 'Unauthorized message', 401
 
 account_orchestrator = obj_graph.provide(AccountOrchestrator)
 

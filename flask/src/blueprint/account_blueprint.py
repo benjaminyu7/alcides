@@ -14,25 +14,10 @@ account_blueprint = Blueprint('login', __name__)
 obj_graph = new_object_graph(binding_specs=[Bindings()])
 account_orchestrator = obj_graph.provide(AccountOrchestrator)
 
-@account_blueprint.route(FLASK_ROUTING + '/addUser', methods=['POST'])
-def add_user():
-    """
-    'POST'
-    {
-        username: 'username'
-    }
-    TODO: add addtional account information like password, email, etc
-    """
-    current_app.logger.debug('addUser request: ' + str(request))
-    did_create = account_orchestrator.add_user(request.json['username'])
-    if(did_create):
-        return jsonify({'status':'OK'}), 200
-    else:
-        return jsonify({'status':'ERROR'}), 400
-
 @account_blueprint.route(FLASK_ROUTING + '/register', methods=['POST'])
 def register():
     if current_user.is_authenticated:
+        # TODO: integrate with the frontend with a useful code
         return "Already Logged in"
 
     email = request.form[EMAIL]
@@ -42,6 +27,7 @@ def register():
 @account_blueprint.route(FLASK_ROUTING + '/login', methods=['POST'])
 def login():
     if current_user.is_authenticated:
+        # TODO: integrate with the frontend with a useful code
         return "Already Logged in"
     
     email = request.form[EMAIL]
@@ -53,9 +39,11 @@ def login():
 @login_required
 def logout():
     logout_user()
+    # TODO: integrate with the frontend with a useful code
     return "Logged out"
 
 @account_blueprint.route(FLASK_ROUTING + '/home')
 @login_required
 def home():
+    # TODO: integrate with the frontend with a useful code
     return "home page"

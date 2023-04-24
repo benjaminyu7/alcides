@@ -10,14 +10,6 @@ class AccountOrchestrator:
     def __init__(self, account_repository:AccountRepository):
         pass
 
-    def add_user(self, username:str):
-        """TODO: Make usernames unique"""
-        if(username != None and username != ""):
-            self.account_repository.create_user(username)
-            return True
-        else:
-            return False
-
     def login(self, email:str, password: str):
         user_data = self.account_repository.find_user_with_email(email)
 
