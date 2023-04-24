@@ -1,6 +1,5 @@
-from flask import ( Blueprint, request, jsonify, current_app )
+from flask import ( Blueprint, request, current_app )
 from pinject import new_object_graph
-from flask import request
 from flask_login import logout_user, current_user, login_required
 
 from src.orchestrator.account_orchestrator import AccountOrchestrator
