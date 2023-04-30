@@ -4,45 +4,23 @@ import sys
 sys.path.append('../src')
 
 from pinject import new_object_graph
-from flask import ( Flask, request, jsonify )
+from flask import ( Flask )
 from flask_login import LoginManager
 
-from src.constants.database_constants import ( MESSAGES )
-from src.constants.flask_constants import ( FLASK_ROUTING )
 from src.database.message_repository import MessageRepository
 from src.database.account_repository import AccountRepository
 from src.injection.bindings import Bindings
 from src.orchestrator.account_orchestrator import AccountOrchestrator
 from src.orchestrator.message_orchestrator import MessageOrchestrator
 from src.blueprint.account_blueprint import account_blueprint
+from src.blueprint.message_blueprint import message_blueprint
 
 app = Flask(__name__)
 # Remove the key from the repo
 app.secret_key = 'supersecretkey'
 app.register_blueprint(account_blueprint)
+app.register_blueprint(message_blueprint)
     
-obj_graph = new_object_graph(binding_specs=[Bindings()])
-message_orchestrator = obj_graph.provide(MessageOrchestrator)
-
-@app.route(FLASK_ROUTING + '/addMessage/<sender>/<recipient>', methods=['POST'])
-def add_message(sender, recipient):
-    app.logger.debug('add_message request: Sender: ' + sender + ', Recipient: ' + recipient + ', Request: ' + str(request))
-    didSend = message_orchestrator.add_message(sender, recipient, request.json['message'])
-    if(didSend):
-        return jsonify({'status':'OK'}), 200
-    else:
-        return jsonify({'status':'ERROR'}), 400
-
-@app.route(FLASK_ROUTING + '/getMessages/<recipient>', methods=['GET'])
-def get_messages(recipient):
-    app.logger.debug('get_messages request: Recipient: ' + recipient)
-    value = message_orchestrator.get_messages(recipient)
-    app.logger.debug('get_messages response: ' + str(value))
-    if value != None:
-        return jsonify({MESSAGES: value[MESSAGES]})
-    else:
-        return jsonify({'status':'OK'}), 200
-
 login_manager = LoginManager()
 login_manager.init_app(app)
 
@@ -51,6 +29,7 @@ def unauthorized_handler():
     # TODO: integrate with the frontend with a useful code
     return 'Unauthorized message', 401
 
+obj_graph = new_object_graph(binding_specs=[Bindings()])
 account_orchestrator = obj_graph.provide(AccountOrchestrator)
 
 @login_manager.user_loader

@@ -25,3 +25,8 @@ class MessageRepository:
         }
         """
         return self.database_gateway.get(DATABASE_NAME, MESSAGE_COLLECTION_NAME, {MESSAGE_RECIPIENT: recipient})
+
+    def get_messages_slice(self, recipient: str, index: int, number_of_messages: int):
+        return self.database_gateway.get_elements_from_list(DATABASE_NAME, MESSAGE_COLLECTION_NAME, 
+                                                    {MESSAGE_RECIPIENT: recipient},
+                                                    MESSAGES, index, number_of_messages)

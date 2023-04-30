@@ -21,3 +21,8 @@ class MongoGateway:
         database = self.mongo_client[database]
         collection = database[collection]
         collection.update_one(query, {"$push":pushListElementQuery}, upsert=True)
+
+    def get_elements_from_list(self, database: str, collection: str, query: dict, element_member:str, index: int, number_of_elements: int):
+        database = self.mongo_client[database]
+        collection = database[collection]
+        return collection.find_one(query, {element_member: {'$slice': [index, number_of_elements]}})

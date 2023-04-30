@@ -26,3 +26,6 @@ class MessageOrchestrator:
         """
         return self.message_repository.get_messages(recipient)
         
+
+    def get_messages_slice(self, recipient: str, index:int, number_of_messages: int):
+        return self.message_repository.get_messages_slice(recipient, index, number_of_messages)
